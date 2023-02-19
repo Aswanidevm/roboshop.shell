@@ -3,7 +3,7 @@ yum install nginx -y > /tmp/nginxinstall
 
 rm -rf /usr/share/nginx/html/* 
 echo -e "\e[33m extracting roboshop frontend..\e[0m"
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip > /tmp/extraction 
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip > /tmp/extractingfrontend 
 cd /usr/share/nginx/html 
 echo -e "\e[41m unziping files... \e[0m"
 unzip /tmp/frontend.zip > /tmp/unziping
