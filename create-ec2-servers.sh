@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ##### Change these values ###
-ZONE_ID="Z103214126L48SQW30RSR"
-DOMAIN="devopsb71.online"
+ZONE_ID="Z04818282BOE8RVGV13K7"
+DOMAIN="myprojecdevops.info"
 SG_NAME="allow-all"
 #############################
 
