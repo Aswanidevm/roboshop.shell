@@ -1,2 +1,1 @@
-# roboshop.shell
-project
+# roboshop-shell
