@@ -4,11 +4,9 @@ print_31 "Installing nginx"
 yum install nginx -y &>>${log_file}
 status $?
 
-if [ $? -eq 0 ]
-then
 print_32 "Removing Old Content"
 rm -rf /usr/share/nginx/html/* &>>${log_file}
-fi
+
 
 print_33 "Downloading Frontend Content"
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip &>>${log_file}
