@@ -4,6 +4,7 @@ print_31 "Installing nginx"
 yum install nginx -y &>>${log_file}
 if [ $? -eq 0 ] then 
 echo success
+fi
 
 print_32 "Removing Old Content"
 rm -rf /usr/share/nginx/html/* &>>${log_file}
