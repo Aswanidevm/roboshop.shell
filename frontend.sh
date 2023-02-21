@@ -2,7 +2,7 @@ source common.sh
 
 print_31 "Installing nginx"
 yum install nginx -y &>>${log_file}
-status() $?
+status $?
 
 print_32 "Removing Old Content"
 rm -rf /usr/share/nginx/html/* &>>${log_file}
