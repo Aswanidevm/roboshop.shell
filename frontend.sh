@@ -2,8 +2,9 @@ source common.sh
 
 print_31 "Installing nginx"
 yum install nginx -y &>>${log_file}
-if [ $? -eq 0 ] then 
-echo success
+if [ $? -eq 0 ] 
+then 
+echo "success"
 fi
 
 print_32 "Removing Old Content"
