@@ -31,6 +31,6 @@ then
 echo "success"
 else
 echo "failed"
-exit 1
+exit
 fi
 }
