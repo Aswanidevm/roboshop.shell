@@ -17,7 +17,6 @@ fi
 status $?
 
 print_32 "Create Application Directory"
-if []
 mkdir /app &>>${log_file}
 status $?
 
