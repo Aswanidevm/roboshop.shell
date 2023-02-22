@@ -93,7 +93,10 @@ nodejs()
   print_36 "Start ${component} Service"
   systemctl restart ${component} &>>${log_file}
   status $?
+}
 
+mongodb()
+{
   print_36 "Copy MongoDB Repo File"
   cp ${code_dir}/config/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
   status $?
