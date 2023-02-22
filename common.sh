@@ -95,7 +95,7 @@ nodejs()
   status $?
 }
 
-mongodb()
+schema_setup()
 {
   print_36 "Copy MongoDB Repo File"
   cp ${code_dir}/config/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
