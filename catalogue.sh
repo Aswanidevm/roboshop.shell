@@ -10,7 +10,9 @@ status $?
 
 print_32 "Create Roboshop User"
 id roboshop &>>${log_file}
-if [ $? -nq 0 ]; then
+if [ $? -eq 0 ]; then
+  exit 0
+  else
 useradd roboshop &>>${log_file}
 fi
 status $?
