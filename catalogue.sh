@@ -9,15 +9,18 @@ yum install nodejs -y &>>${log_file}
 status $?
 
 print_32 "Create Roboshop User"
-id roboshop >> ${log_file}
-if [ $? -!eq 0 ]
+id roboshop &>>${log_file}
+if [ $? -nq 0 ]
 then
 useradd roboshop &>>${log_file}
 fi
 status $?
 
 print_32 "Create Application Directory"
+if [ ! -d /app]
+then
 mkdir /app &>>${log_file}
+fi
 status $?
 
 print_33 "Delete Old Content"
