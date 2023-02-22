@@ -35,12 +35,27 @@ exit
 fi
 }
 
+schema_setup()
+{
+  if [ ${schema_type} == "mongo" ]
+  then
+  print_36 "Copy MongoDB Repo File"
+  cp ${code_dir}/config/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
+  status $?
+
+  print_32 "Install Mongo Client"
+  yum install mongodb-org-shell -y &>>${log_file}
+  status $?
+
+  print_33 "Load Schema"
+  mongo --host mongodb.myprojecdevops.info </app/schema/${component}.js &>>${log_file}
+  status $?
+fi
+}
 
 nodejs()
 {
-  source common.sh
-
-  print_31 "Configure NodeJS Repo"
+   print_31 "Configure NodeJS Repo"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
   status $?
 
@@ -93,20 +108,7 @@ nodejs()
   print_36 "Start ${component} Service"
   systemctl restart ${component} &>>${log_file}
   status $?
+
+  schema_setup
 }
 
-schema_setup()
-{
-  print_36 "Copy MongoDB Repo File"
-  cp ${code_dir}/config/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
-  status $?
-
-  print_32 "Install Mongo Client"
-  yum install mongodb-org-shell -y &>>${log_file}
-  status $?
-
-  print_33 "Load Schema"
-  mongo --host mongodb.myprojecdevops.info </app/schema/${component}.js &>>${log_file}
-  status $?
-
-}
