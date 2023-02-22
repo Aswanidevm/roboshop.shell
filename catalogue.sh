@@ -18,10 +18,8 @@ fi
 status $?
 
 print_32 "Create Application Directory"
-if [ -d /app]; then
-  exit 0
-  else
-mkdir /app &>>${log_file}
+if [ ! -d /app ]; then
+ mkdir /app &>>${log_file}
 fi
 status $?
 
