@@ -55,7 +55,7 @@ systemctl restart catalogue &>>${log_file}
 status $?
 
 print_36 "Copy MongoDB Repo File"
-cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
+cp ${code_dir}/config/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
 status $?
 
 print_32 "Install Mongo Client"
