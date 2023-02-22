@@ -37,7 +37,7 @@ fi
 
 schema_setup()
 {
-  if [ ${schema_type} == "mongo" ]
+  if [ "${schema_type}" == "mongo" ]
   then
   print_36 "Copy MongoDB Repo File"
   cp ${code_dir}/config/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
