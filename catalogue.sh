@@ -8,7 +8,7 @@ print_31 "Install NodeJS"
 yum install nodejs -y &>>${log_file}
 status $?
 
-print_32"Create Roboshop User"
+print_32 "Create Roboshop User"
 useradd roboshop &>>${log_file}
 status $?
 
