@@ -9,10 +9,15 @@ yum install nodejs -y &>>${log_file}
 status $?
 
 print_32 "Create Roboshop User"
+ip roboshop >> ${log_file}
+if [ $? -eq 0 ]
+then
 useradd roboshop &>>${log_file}
+fi
 status $?
 
 print_32 "Create Application Directory"
+if []
 mkdir /app &>>${log_file}
 status $?
 
@@ -27,7 +32,6 @@ status $?
 
 print_34 "Extracting App Content"
 unzip /tmp/catalogue.zip &>>${log_file}
-status $?
 status $?
 
 print_31 "Installing NodeJS Dependencies"
