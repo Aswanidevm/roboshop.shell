@@ -10,15 +10,13 @@ status $?
 
 print_32 "Create Roboshop User"
 id roboshop &>>${log_file}
-if [ $? -nq 0 ]
-then
+if [ $? -nq 0 ]; then
 useradd roboshop &>>${log_file}
 fi
 status $?
 
 print_32 "Create Application Directory"
-if [ ! -d /app]
-then
+if [ ! -d /app]; then
 mkdir /app &>>${log_file}
 fi
 status $?
