@@ -37,7 +37,7 @@ fi
 
 systemd_setup() {
   print_33 "Copy SystemD Service File"
-  cp ${code_dir}/configs/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+  cp ${code_dir}/config/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
   status $?
 
   sed -i -e "s/ROBOSHOP_USER_PASSWORD/${roboshop_app_password}/" /etc/systemd/system/${component}.service &>>${log_file}
@@ -58,7 +58,7 @@ systemd_setup() {
 schema_setup() {
   if [ "${schema_type}" == "mongo" ]; then
     print_36 "Copy MongoDB Repo File"
-    cp ${code_dir}/configs/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
+    cp ${code_dir}/config/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>${log_file}
     status $?
 
     print_31 "Install Mongo Client"
