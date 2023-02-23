@@ -52,14 +52,17 @@ schema_setup()
   status $?
 elif [ "${schema_type}" == "mysql" ]
   then
-    print_head "Install MySQL Client"
+    print_34 "Install MySQL Client"
       yum install mysql -y &>>${log_file}
       status $?
 
-      print_head "Load Schema"
+      print_35 "Load Schema"
       mysql -h myql.myprojecdevops.info -uroot -p${mysql_root_password} < /app/schema/shipping.sql &>>${log_file}
       status $?
     fi
+
+}
+
 systemd_setup()
 {
     print_34 "Copy SystemD Service File"
