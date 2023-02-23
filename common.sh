@@ -53,6 +53,58 @@ schema_setup()
 fi
 }
 
+systemd_setup()
+{
+    print_34 "Copy SystemD Service File"
+    cp ${code_dir}/config/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+    status $?
+
+    sed -i -e "s/ROBOSHOP_USER_PASSWORD/${roboshop_app_password}/" /etc/systemd/system/${component}.service &>>${log_file}
+
+    print_35 "Reload SystemD"
+    systemctl daemon-reload &>>${log_file}
+    status $?
+
+    print_35 "Enable ${component} Service "
+    systemctl enable ${component} &>>${log_file}
+    status $?
+
+    print_36 "Start ${component} Service"
+    systemctl restart ${component} &>>${log_file}
+    status $?
+
+}
+
+prereq_setup()
+{
+    print_32 "Create Roboshop User"
+    id roboshop &>>${log_file}
+    if [ $? -ne 0 ]; then
+     useradd roboshop &>>${log_file}
+    fi
+    status $?
+
+    print_32 "Create Application Directory"
+    if [ ! -d /app ]; then
+     mkdir /app &>>${log_file}
+    fi
+    status $?
+
+    print_33 "Delete Old Content"
+    rm -rf /app/* &>>${log_file}
+    status $?
+
+    print_33 "Downloading App Content"
+    curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
+    cd /app
+    status $?
+
+    print_34 "Extracting App Content"
+    unzip /tmp/${component}.zip &>>${log_file}
+    status $?
+
+}
+
 nodejs()
 {
    print_31 "Configure NodeJS Repo"
@@ -63,52 +115,15 @@ nodejs()
   yum install nodejs -y &>>${log_file}
   status $?
 
-  print_32 "Create Roboshop User"
-  id roboshop &>>${log_file}
-  if [ $? -ne 0 ]; then
-   useradd roboshop &>>${log_file}
-  fi
-  status $?
-
-  print_32 "Create Application Directory"
-  if [ ! -d /app ]; then
-   mkdir /app &>>${log_file}
-  fi
-  status $?
-
-  print_33 "Delete Old Content"
-  rm -rf /app/* &>>${log_file}
-  status $?
-
-  print_33 "Downloading App Content"
-  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
-  cd /app
-  status $?
-
-  print_34 "Extracting App Content"
-  unzip /tmp/${component}.zip &>>${log_file}
-  status $?
+  prereq_setup
 
   print_31 "Installing NodeJS Dependencies"
   npm install &>>${log_file}
   status $?
 
-  print_34 "Copy SystemD Service File"
-  cp ${code_dir}/config/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
-  status $?
-
-  print_35 "Reload SystemD"
-  systemctl daemon-reload &>>${log_file}
-  status $?
-
-  print_35 "Enable ${component} Service "
-  systemctl enable ${component} &>>${log_file}
-  status $?
-
-  print_36 "Start ${component} Service"
-  systemctl restart ${component} &>>${log_file}
-  status $?
 
   schema_setup
+
+  systemd_setup
 }
 
