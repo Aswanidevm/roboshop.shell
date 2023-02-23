@@ -50,9 +50,16 @@ schema_setup()
   print_33 "Load Schema"
   mongo --host mongodb.myprojecdevops.info </app/schema/${component}.js &>>${log_file}
   status $?
-fi
-}
+elif [ "${schema_type}" == "mysql" ]
+  then
+    print_head "Install MySQL Client"
+      yum install mysql -y &>>${log_file}
+      status $?
 
+      print_head "Load Schema"
+      mysql -h myql.myprojecdevops.info -uroot -p${mysql_root_password} < /app/schema/shipping.sql &>>${log_file}
+      status $?
+    fi
 systemd_setup()
 {
     print_34 "Copy SystemD Service File"
@@ -125,5 +132,23 @@ nodejs()
   schema_setup
 
   systemd_setup
+}
+
+java()
+{
+
+yum install maven -y &>>${log_file}
+
+prereq_setup
+
+mvn clean package &>> ${log_file}
+
+mv target/shipping-1.0.jar shipping.jar &>> ${log_file}
+
+ schema_setup
+
+systemd_setup
+
+
 }
 
