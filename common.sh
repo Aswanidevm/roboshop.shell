@@ -57,7 +57,7 @@ elif [ "${schema_type}" == "mysql" ]
       status $?
 
       print_35 "Load Schema"
-      mysql -h myql.myprojecdevops.info -uroot -p${mysql_root_password} < /app/schema/shipping.sql &>>${log_file}
+      mysql -h mysql.myprojecdevops.info -uroot -p${mysql_root_password} < /app/schema/shipping.sql &>>${log_file}
       status $?
     fi
 
