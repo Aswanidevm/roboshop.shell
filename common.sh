@@ -166,16 +166,21 @@ python() {
 golang()
 {
   print_33 "Install Golang"
-  yum install golang -y
+  yum install golang -y  &>>${log_file}
+  status $?
 
-  app_prereq_setup
+  app_prereq_setup &>>${log_file}
+  status $?
 
   print_32 "Download Dependencies"
-  go mod init dispatch
+  go mod init dispatch &>>${log_file}
+  status $?
 
-  go get
+  go get &>>${log_file}
+  status $?
 
-  go build
+  go build&>>${log_file}
+  status $?
 
   systemd_setup
 }
