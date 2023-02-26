@@ -7,3 +7,5 @@ if [ -z "${roboshop_app_password}" ]; then
 fi
 
 component=dispatch
+
+golang
